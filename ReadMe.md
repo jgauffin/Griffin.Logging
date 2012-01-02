@@ -28,9 +28,13 @@ Or the fluent syntax:
 Usage
 -----
 
-    // usage
+    // get a logger for a class
     var logger = LogManager.GetLogger<MyClass>();
+
+	// Log an exception. The inner exceptions are logged too (recursive)
     logger.Warning("Ooops, we got an exception.", ex);
+
+	// Built in formatting for cleaner syntax.
     logger.Info("Welcome {0}!.", user.Name);
 
 
@@ -38,3 +42,12 @@ Installation
 ------------
 
 Use nuget: "Install-package griffin.logging"
+
+
+Extending
+---------
+
+* Create a custom logmanager by implementing ILogManager and assign it using LogManager.Assign
+* Create a custom target by implementing ILogTarget. Look at https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/Targets/AdoNetTarget.cs for an example
+* Add a IPreFilter or a IPostFilter to filter log entries.
+* Create extension methods for one of the FluentXXX classes to inject your custom classes to the fluent configuration.
