@@ -1,0 +1,29 @@
+Griffin.Logging v1.0
+
+Either add the following code into your startup class:
+
+	SimpleLogManager.AddFile(@"D:\LogFiles\MyLog.log");
+	SimpleLogManager.AddConsole(false);
+  
+Or use the fluent syntax (read the intellisense for documentation):
+
+	new FluentConfiguration()
+	  .LogNamespace("ConsoleApplication1").AndChildNamespaces.ToTargetNamed("Console")
+	  .LogNamespace("System").AndChildNamespaces.ToTargetNamed("DefaultFile")
+	  .AddTarget("Console")
+		  .As.ConsoleLogger().Filter.OnLogLevelBetween(LogLevel.Info, LogLevel.Error)
+		  .Done
+	  .AddTarget("DefaultFile")
+		  .As.FileLogger("ErrorsOnly").Filter.OnLogLevel(LogLevel.Error)
+		  .As.FileLogger("Everything")
+		  .Done
+	  .Build();
+	  
+Get a logger in each class by doing this:
+
+	public class MyClass
+	{
+		public ILogger _logger = LogManager.GetLogger<MyClass>();
+	
+	}
+	

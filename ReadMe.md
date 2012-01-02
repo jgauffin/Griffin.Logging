@@ -7,23 +7,22 @@ Configuration
 
 You can either use the simple interface to get going quickly:
 
-      // configuration
-      SimpleLogger.AddFile("D:\LogFiles\MyLog.log"); // date can automatically be appended to the log name
-      SimpleLogger.AddConsole(); // A console windows is created automatically for winforms projects
+	SimpleLogManager.AddFile(@"D:\LogFiles\MyLog.log");
+	SimpleLogManager.AddConsole(false);
     
 Or the fluent syntax:
 
-    var config = new FluentConfiguration()
-      .LogNamespace("Fadd.Test").AndSubNamespaces.ToTargetNamed("Console")
-      .LogNamespace("System").AndSubNamespaces.ToTargetNamed("DefaultFile")
-      .AddTarget("Console")
-          .As.ConsoleLogger().Filter.OnLogLevelBetween(LogLevel.Info, LogLevel.Error)
-          .Done 
-      .AddTarget("DefaultFile")
-          .As.FileLogger("ErrorsOnly").Filter.OnLogLevel(LogLevel.Error)
-          .As.FileLogger("Everything")
-          .Done
-      .Build();
+	new FluentConfiguration()
+		.LogNamespace("ConsoleApplication1").AndChildNamespaces.ToTargetNamed("Console")
+		.LogNamespace("System").AndChildNamespaces.ToTargetNamed("DefaultFile")
+		.AddTarget("Console")
+			.As.ConsoleLogger().Filter.OnLogLevelBetween(LogLevel.Info, LogLevel.Error)
+			.Done
+		.AddTarget("DefaultFile")
+			.As.FileLogger("ErrorsOnly").Filter.OnLogLevel(LogLevel.Error)
+			.As.FileLogger("Everything")
+			.Done
+		.Build();
 
 Usage
 -----
@@ -49,7 +48,7 @@ Use nuget:
 Extending
 ---------
 
-* Create a custom logmanager by implementing [ILogManager](https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/ILogManager.cs) and assign it using [LogManager.Assign].
-* Create a custom target by implementing [ILogTarget](https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/Targets/ILogTarget.cs). Look at [AdoNetTarget](https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/Targets/AdoNetTarget.cs) for an example
-* Add a [IPreFilter](https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/Filters/IPreFilter.cs) or a [IPostFilter](https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/Filters/IPostFilter.cs) to filter log entries.
+* Create a custom logmanager by implementing [ILogManager](https://github.com/jgauffin/Griffin.Logging/blob/master/Source/Griffin.Logging/ILogManager.cs) and assign it using [LogManager.Assign].
+* Create a custom target by implementing [ILogTarget](https://github.com/jgauffin/Griffin.Logging/blob/master/Source/Griffin.Logging/Targets/ILogTarget.cs). Look at [AdoNetTarget](https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/Targets/AdoNetTarget.cs) for an example
+* Add a [IPreFilter](https://github.com/jgauffin/Griffin.Logging/blob/master/Source/Griffin.Logging/Filters/IPreFilter.cs) or a [IPostFilter](https://github.com/jgauffin/Griffin.Logging/blob/master/Source/Griffin.Logging/Filters/IPostFilter.cs) to filter log entries.
 * Create extension methods for one of the FluentXXX classes to inject your custom classes to the fluent configuration.

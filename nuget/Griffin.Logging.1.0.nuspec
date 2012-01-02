@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Griffin.Logging</id>
+    <version>1.0</version>
+    <title>Griffin Logging Framework</title>
+    <authors>Jonas Gauffin</authors>
+    <owners />
+    <projectUrl>https://github.com/jgauffin/Griffin.Logging</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A logging framework for .NET which is easy to use and extend. Well documented classes and interfaces.</description>
+    <summary>A logging framework for .NET. All you need is two lines for configuration and one line for usage.</summary>
+    <releaseNotes>First release</releaseNotes>
+  </metadata>
+  <files>
+    <file src="content\App_ReadMe\Griffin.Logging.txt" target="content\App_ReadMe\Griffin.Logging.txt" />
+    <file src="lib\net40\Griffin.Logging.dll" target="lib\net40\Griffin.Logging.dll" />
+    <file src="lib\net40\Griffin.Logging.pdb" target="lib\net40\Griffin.Logging.pdb" />
+    <file src="lib\net40\Griffin.Logging.XML" target="lib\net40\Griffin.Logging.XML" />
+  </files>
+</package>
