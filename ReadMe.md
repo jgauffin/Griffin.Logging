@@ -49,6 +49,6 @@ Extending
 ---------
 
 * Create a custom logmanager by implementing [ILogManager](https://github.com/jgauffin/Griffin.Logging/blob/master/Source/Griffin.Logging/ILogManager.cs) and assign it using [LogManager.Assign].
-* Create a custom target by implementing [ILogTarget](https://github.com/jgauffin/Griffin.Logging/blob/master/Source/Griffin.Logging/Targets/ILogTarget.cs). Look at [AdoNetTarget](https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/Targets/AdoNetTarget.cs) for an example
+* Create a custom target by implementing [ILogTarget](https://github.com/jgauffin/Griffin.Logging/blob/master/Source/Griffin.Logging/Targets/ILogTarget.cs). Look at [AdoNetTarget](https://github.com/jgauffin/Griffin.Logging/blob/master/Source/Griffin.Logging/Targets/AdoNetTarget.cs) for an example
 * Add a [IPreFilter](https://github.com/jgauffin/Griffin.Logging/blob/master/Source/Griffin.Logging/Filters/IPreFilter.cs) or a [IPostFilter](https://github.com/jgauffin/Griffin.Logging/blob/master/Source/Griffin.Logging/Filters/IPostFilter.cs) to filter log entries.
 * Create extension methods for one of the FluentXXX classes to inject your custom classes to the fluent configuration.
