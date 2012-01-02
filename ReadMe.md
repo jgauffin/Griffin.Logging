@@ -41,13 +41,15 @@ Usage
 Installation
 ------------
 
-Use nuget: "Install-package griffin.logging"
+Use nuget:
+
+    Install-Package griffin.logging
 
 
 Extending
 ---------
 
-* Create a custom logmanager by implementing ILogManager and assign it using LogManager.Assign
-* Create a custom target by implementing ILogTarget. Look at https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/Targets/AdoNetTarget.cs for an example
-* Add a IPreFilter or a IPostFilter to filter log entries.
+* Create a custom logmanager by implementing [https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/ILogManager.cs](ILogManager) and assign it using LogManager.Assign
+* Create a custom target by implementing [https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/Targets/ILogTarget.cs](ILogTarget). Look at [https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/Targets/AdoNetTarget.cs](AdoNetTarget) for an example
+* Add a [https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/Filters/IPreFilter.cs](IPreFilter) or a [https://github.com/jgauffin/Griffin.Logging/blob/master/Griffin.Logging/Filters/IPostFilter.cs](IPostFilter) to filter log entries.
 * Create extension methods for one of the FluentXXX classes to inject your custom classes to the fluent configuration.
