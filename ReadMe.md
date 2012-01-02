@@ -1,9 +1,9 @@
-Griffin Logging
----------------
-
 Griffin.Logging is a Logging framework for .NET similar to log4net and NLog.
 
 The difference is all in the syntax.
+
+Configuration
+-------------
 
 You can either use the simple interface to get going quickly:
 
@@ -11,11 +11,6 @@ You can either use the simple interface to get going quickly:
       SimpleLogger.AddFile("D:\LogFiles\MyLog.log"); // date can automatically be appended to the log name
       SimpleLogger.AddConsole(); // A console windows is created automatically for winforms projects
     
-      // usage
-      var logger = LogManager.GetLogger<MyClass>();
-      logger.Warning("Ooops, we got an exception.", ex);
-      logger.Info("Welcome {0}!.", user.Name);
-
 Or the fluent syntax:
 
     var config = new FluentConfiguration()
@@ -29,6 +24,15 @@ Or the fluent syntax:
           .As.FileLogger("Everything")
           .Done
       .Build();
+
+Usage
+-----
+
+    // usage
+    var logger = LogManager.GetLogger<MyClass>();
+    logger.Warning("Ooops, we got an exception.", ex);
+    logger.Info("Welcome {0}!.", user.Name);
+
 
 Installation
 ------------
