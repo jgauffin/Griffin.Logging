@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
-namespace Griffin.Logging.MQ
+namespace Griffin.Logging.Net
 {
     /// <summary>
-    /// Used to transfer the log entry over the MQ wire.
+    /// Used to transfer the log entry over any network
     /// </summary>
-    [Serializable]
+    [Serializable, DataContract]
     public class LogEntryDTO
     {
         /// <summary>
@@ -44,52 +45,62 @@ namespace Griffin.Logging.MQ
         /// <summary>
         /// Gets or sets computer that the logs are from.
         /// </summary>
+        [DataMember(Order = 1)]
         public string ComputerName { get; set; }
 
         /// <summary>
         /// Gets name of the application which is logged.
         /// </summary>
+        [DataMember(Order = 2)]
         public string ApplicationName { get; set; }
 
         /// <summary>
         /// Gets or sets target (i.e. module in the application)
         /// </summary>
+        [DataMember(Order = 3)]
         public string TargetName { get; set; }
 
 
         /// <summary>
         /// Gets or sets name of the current identity.
         /// </summary>
+        [DataMember(Order = 4)]
         public string UserName { get; set; }
 
         /// <summary>
         /// Gets or sets when entry was created
         /// </summary>
+        [DataMember(Order = 5)]
         public DateTime CreatedAt { get; set; }
 
         /// <summary>
         /// Gets or sets the type that is logging (<c>Type.FullName</c>)
         /// </summary>
+        [DataMember(Order = 6)]
         public string LoggingType { get; set; }
 
         /// <summary>
         /// Gets or sets <c>StackFrame.ToString()</c> for the caller
         /// </summary>
+        [DataMember(Order = 7)]
         public string LoggingMethod { get; set; }
 
         /// <summary>
         /// Gets or sets log message.
         /// </summary>
+        [DataMember(Order = 8)]
         public string Message { get; set; }
 
         /// <summary>
         /// Gets or sets exception (optional)
         /// </summary>
+        [DataMember(Order = 9)]
         public ExceptionDTO Exception { get; set; }
 
         /// <summary>
         /// Gets or sets id of current thread.
         /// </summary>
+        [DataMember(Order = 10)]
         public int ThreadId { get; set; }
 
         /// <summary>
@@ -123,6 +134,7 @@ namespace Griffin.Logging.MQ
         /// </item>
         /// </list>
         /// </remarks>
+        [DataMember(Order = 11)]
         public LogLevel LogLevel { get; set; }
     }
 }

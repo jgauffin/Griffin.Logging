@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Messaging;
 using Griffin.Logging.Filters;
+using Griffin.Logging.Net;
 using Griffin.Logging.Targets;
 
 namespace Griffin.Logging.MQ

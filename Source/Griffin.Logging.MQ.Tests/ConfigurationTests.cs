@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Messaging;
 using System.Text;
+using Griffin.Logging.Net;
 using Xunit;
 
 namespace Griffin.Logging.MQ.Tests

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using Griffin.Logging.Net;
 
 namespace Griffin.Logging.MQ.Tests
 {

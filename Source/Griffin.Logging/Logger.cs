@@ -39,6 +39,12 @@ namespace Griffin.Logging
         private readonly IEnumerable<IPreFilter> _filters;
         private readonly Type _loggedType;
         private readonly IEnumerable<ILogTarget> _targets;
+        private static bool _discoveredFrames = false;
+
+        /// <summary>
+        /// The stack frame to get
+        /// </summary>
+        private static int _skipStackFrames = 2;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Logger"/> class.
@@ -323,8 +329,14 @@ namespace Griffin.Logging
                 return;
             }
 
+            if (!_discoveredFrames)
+            {
+                var trace = new StackTrace();
+                FindCorrectFrame(trace);
+                _discoveredFrames = true;
+            }
 
-            var frame = new StackFrame(2);
+            var frame = new StackFrame(_skipStackFrames);
 
             var userName = Thread.CurrentPrincipal.Identity.Name;
             if (string.IsNullOrEmpty(userName))
@@ -345,6 +357,23 @@ namespace Griffin.Logging
             foreach (var target in _targets)
             {
                 target.Enqueue(entry);
+            }
+        }
+
+        private static void FindCorrectFrame(StackTrace trace)
+        {
+            
+            int index = 0;
+            for (int i = 0; i < trace.FrameCount; i++)
+            {
+                if (trace.GetFrame(i).GetMethod().ReflectedType == typeof(Logger))
+                {
+                    index++;
+                }
+                if (trace.GetFrame(i).GetMethod().ReflectedType != typeof (Logger))
+                {
+                    _skipStackFrames = index;
+                }
             }
         }
     }

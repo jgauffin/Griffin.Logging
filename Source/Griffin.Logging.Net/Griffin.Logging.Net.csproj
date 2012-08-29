@@ -5,15 +5,13 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{6E1DB7C8-9E2E-4531-900B-78BA769465A9}</ProjectGuid>
+    <ProjectGuid>{4D25BE1D-4146-4EB5-A0EB-1230FF16A94D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Griffin.Logging.MQ.Tests</RootNamespace>
-    <AssemblyName>Griffin.Logging.MQ.Tests</AssemblyName>
+    <RootNamespace>Griffin.Logging.Net</RootNamespace>
+    <AssemblyName>Griffin.Logging.Net</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -31,46 +29,32 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Griffin.Logging.Net.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Messaging" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="xunit">
-      <HintPath>..\packages\xunit.1.9.1\lib\net20\xunit.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigurationTests.cs" />
-    <Compile Include="Queue.cs" />
-    <Compile Include="Receiver.cs" />
-    <Compile Include="IntegrationTests.cs" />
+    <Compile Include="ExceptionDTO.cs" />
+    <Compile Include="ILogReceiver.cs" />
+    <Compile Include="LogEntryDTO.cs" />
+    <Compile Include="NamespaceDoc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Griffin.Logging.MQ\Griffin.Logging.MQ.csproj">
-      <Project>{5D368039-35BF-4E25-884A-353CB6FBBB61}</Project>
-      <Name>Griffin.Logging.MQ</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Griffin.Logging.Net\Griffin.Logging.Net.csproj">
-      <Project>{4D25BE1D-4146-4EB5-A0EB-1230FF16A94D}</Project>
-      <Name>Griffin.Logging.Net</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Griffin.Logging\Griffin.Logging.csproj">
       <Project>{AB8AB029-2D95-4291-A737-6E75CD28DC90}</Project>
       <Name>Griffin.Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

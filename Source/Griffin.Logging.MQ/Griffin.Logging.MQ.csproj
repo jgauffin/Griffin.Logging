@@ -42,10 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionDTO.cs" />
     <Compile Include="FluentExtensions.cs" />
-    <Compile Include="ILogReceiver.cs" />
-    <Compile Include="LogEntryDTO.cs" />
     <Compile Include="MqTarget.cs" />
     <Compile Include="NamespaceDoc.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -53,6 +50,10 @@
     <Compile Include="SimpleLogManagerExtension.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Griffin.Logging.Net\Griffin.Logging.Net.csproj">
+      <Project>{4D25BE1D-4146-4EB5-A0EB-1230FF16A94D}</Project>
+      <Name>Griffin.Logging.Net</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Griffin.Logging\Griffin.Logging.csproj">
       <Project>{AB8AB029-2D95-4291-A737-6E75CD28DC90}</Project>
       <Name>Griffin.Logging</Name>

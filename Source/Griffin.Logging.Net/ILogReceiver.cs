@@ -1,4 +1,4 @@
-namespace Griffin.Logging.MQ
+namespace Griffin.Logging.Net
 {
     /// <summary>
     /// Implement this interface to receive all log entries from the queue

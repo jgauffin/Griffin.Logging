@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Messaging;
+using Griffin.Logging.Net;
 
 namespace Griffin.Logging.MQ
 {

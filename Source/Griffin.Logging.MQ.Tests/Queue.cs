@@ -13,7 +13,7 @@ namespace Griffin.Logging.MQ.Tests
             else
             {
                 var queue = new MessageQueue(Queue.Name);
-                queue.GetAllMessages();
+                queue.Purge();
             }
         }
     }
