@@ -22,26 +22,26 @@ using Griffin.Logging.Targets;
 
 namespace Griffin.Logging
 {
-	/// <summary>
-	/// Extension used to configure the database
-	/// </summary>
-	public static class TargetAdoNetExtension
-	{
-		/// <summary>
-		/// Adds a database logger.
-		/// </summary>
-		/// <param name="instance">fluent configuration instance.</param>
-		/// <param name="connectionStringName">Name of the connection string in app/webb.config.</param>
-		/// <returns>Fluent configuration instance</returns>
-		/// <remarks>
-		/// Use the standard .NET way to define the connection string. This code will use <see cref="ConfigurationManager"/> to find the
-		/// connection string in your config file.
-		/// </remarks>
-		public static FluentTargetConfiguration DatabaseLogger(this FluentTargetConfigurationTypes instance,
-		                                                       string connectionStringName)
-		{
-			instance.Add(new AdoNetTarget(connectionStringName));
-			return instance.Done;
-		}
-	}
+    /// <summary>
+    /// Extension used to configure the database
+    /// </summary>
+    public static class TargetAdoNetExtension
+    {
+        /// <summary>
+        /// Adds a database logger.
+        /// </summary>
+        /// <param name="instance">fluent configuration instance.</param>
+        /// <param name="connectionStringName">Name of the connection string in app/webb.config.</param>
+        /// <returns>Fluent configuration instance</returns>
+        /// <remarks>
+        /// Use the standard .NET way to define the connection string. This code will use <see cref="ConfigurationManager"/> to find the
+        /// connection string in your config file.
+        /// </remarks>
+        public static FluentTargetConfiguration DatabaseLogger(this FluentTargetConfigurationTypes instance,
+                                                               string connectionStringName)
+        {
+            instance.Add(new AdoNetTarget(connectionStringName));
+            return instance.Done;
+        }
+    }
 }

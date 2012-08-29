@@ -18,81 +18,81 @@
  */
 
 using System;
-using System.Diagnostics;
 
 namespace Griffin.Logging
 {
-	/// <summary>
-	/// entry that should be written to a file
-	/// </summary>
-	public class LogEntry
-	{
-		/// <summary>
-		/// Gets or sets name of the current identity.
-		/// </summary>
-		public string UserName { get; set; }
+    /// <summary>
+    /// entry that should be written to a file
+    /// </summary>
+    [Serializable]
+    public class LogEntry
+    {
+        /// <summary>
+        /// Gets or sets name of the current identity.
+        /// </summary>
+        public string UserName { get; set; }
 
-		/// <summary>
-		/// Gets or sets when entry was created
-		/// </summary>
-		public DateTime CreatedAt { get; set; }
+        /// <summary>
+        /// Gets or sets when entry was created
+        /// </summary>
+        public DateTime CreatedAt { get; set; }
 
-		/// <summary>
-		/// Gets or sets type that has the logger as a member
-		/// </summary>
-		public Type LoggedType { get; set; }
+        /// <summary>
+        /// Gets or sets type that has the logger as a member
+        /// </summary>
+        public Type LoggedType { get; set; }
 
-		/// <summary>
-		/// Gets or sets stack frames
-		/// </summary>
-		public StackFrame[] StackFrames { get; set; }
+        /// <summary>
+        /// Gets or sets method that invoked the caller.
+        /// </summary>
+        public string MethodName { get; set; }
 
-		/// <summary>
-		/// Gets or sets log message.
-		/// </summary>
-		public string Message { get; set; }
+        /// <summary>
+        /// Gets or sets log message.
+        /// </summary>
+        public string Message { get; set; }
 
-		/// <summary>
-		/// Gets or sets exception (optional)
-		/// </summary>
-		public Exception Exception { get; set; }
+        /// <summary>
+        /// Gets or sets exception (optional)
+        /// </summary>
+        public Exception Exception { get; set; }
 
-		/// <summary>
-		/// Gets or sets id of current thread.
-		/// </summary>
-		public int ThreadId { get; set; }
+        /// <summary>
+        /// Gets or sets id of current thread.
+        /// </summary>
+        public int ThreadId { get; set; }
 
-		/// <summary>
-		/// Gets or sets how important the log entry is
-		/// </summary>
-		/// <remarks>
-		/// Here is our recommendation to how you should use each log level.
-		/// <list type="table">
-		/// <item>
-		/// <term>Debug</term>
-		/// <description>Debug entries are usually used only when debugging. They can be used to track
-		/// variables or method contracts. There might be several debug entries per method.</description>
-		/// </item>
-		/// <item>
-		/// <term>Info</term>
-		/// <description>Informational messages are used to track state changes such as login, logout, record updates etc. 
-		/// There are at most one entry per method.</description>
-		/// </item>
-		/// <item>
-		/// <term>Warning</term>
-		/// <description>
-		/// Warnings are used when something unexpected happend but the application can handle it and continue as expected.
-		/// </description>
-		/// </item>
-		/// <item>
-		/// <term>Error</term>
-		/// <description>
-		/// Errors are when something unexpected happens and the application cannot deliver result as expected. It might or might not
-		/// mean that the application has to be restarted.
-		/// </description>
-		/// </item>
-		/// </list>
-		/// </remarks>
-		public LogLevel LogLevel { get; set; }
-	}
+        /// <summary>
+        /// Gets or sets how important the log entry is
+        /// </summary>
+        /// <remarks>
+        /// Here is our recommendation to how you should use each log level.
+        /// <list type="table">
+        /// <item>
+        /// <term>Debug</term>
+        /// <description>Debug entries are usually used only when debugging. They can be used to track
+        /// variables or method contracts. There might be several debug entries per method.</description>
+        /// </item>
+        /// <item>
+        /// <term>Info</term>
+        /// <description>Informational messages are used to track state changes such as login, logout, record updates etc. 
+        /// There are at most one entry per method.</description>
+        /// </item>
+        /// <item>
+        /// <term>Warning</term>
+        /// <description>
+        /// Warnings are used when something unexpected happend but the application can handle it and continue as expected.
+        /// </description>
+        /// </item>
+        /// <item>
+        /// <term>Error</term>
+        /// <description>
+        /// Errors are when something unexpected happens and the application cannot deliver result as expected. It might or might not
+        /// mean that the application has to be restarted.
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </remarks>
+        public LogLevel LogLevel { get; set; }
+    }
 }

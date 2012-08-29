@@ -21,86 +21,82 @@ using System.Collections.Generic;
 
 namespace Griffin.Logging
 {
-	/// <summary>
-	/// Fluent configuration api for the logging library.
-	/// </summary>
-	/// <example>
-	/// <code>
-	/// Configure.Griffin.Logging()
-	///    .LogNamespace("Griffin.Logging.Tests").AndSubNamespaces.ToTargetNamed("Console")
-	///    .AddTarget("Console").As.ConsoleLogger().Done
-	///    .Build();
-	///</code>
-	/// </example>
-	public class FluentConfiguration
-	{
-		private static FluentConfiguration _generated;
-		private readonly List<FluentNamespaceLogging> _namespaces = new List<FluentNamespaceLogging>();
-		private readonly List<FluentTargetConfiguration> _targets = new List<FluentTargetConfiguration>();
+    /// <summary>
+    /// Fluent configuration api for the logging library.
+    /// </summary>
+    /// <example>
+    /// <code>
+    /// new FluentConfiguration()
+    ///    .LogNamespace("Griffin.Logging.Tests").AndSubNamespaces.ToTargetNamed("Console")
+    ///    .AddTarget("Console").As.ConsoleLogger().Done
+    ///    .Build();
+    ///</code>
+    /// </example>
+    public class FluentConfiguration
+    {
+        private readonly List<FluentNamespaceLogging> _namespaces = new List<FluentNamespaceLogging>();
+        private readonly List<FluentTargetConfiguration> _targets = new List<FluentTargetConfiguration>();
 
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="FluentConfiguration"/> class.
-		/// </summary>
-		public FluentConfiguration()
-		{
-			_generated = this;
-			AddTarget("fileLogger").As.ConsoleLogger().Filter.OnLogLevelBetween(LogLevel.Debug, LogLevel.Warning).Done
-				.LogNamespace("*").AndChildNamespaces.ToTargetNamed("fileLogger");
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FluentConfiguration"/> class.
+        /// </summary>
+        public FluentConfiguration()
+        {
+        }
 
-		/// <summary>
-		/// Logg all namespaces
-		/// </summary>
-		public FluentNamespaceLogging LogEverything
-		{
-			get
-			{
-				var ns = new FluentNamespaceLogging(this, null);
-				_namespaces.Add(ns);
-				return ns;
-			}
-		}
+        /// <summary>
+        /// Logg all namespaces
+        /// </summary>
+        public FluentNamespaceLogging LogEverything
+        {
+            get
+            {
+                var ns = new FluentNamespaceLogging(this, null);
+                _namespaces.Add(ns);
+                return ns;
+            }
+        }
 
-		/// <summary>
-		/// Configure a target that log entries can be written to
-		/// </summary>
-		/// <param name="name">Name of the target. Must be the same as used by <see cref="LogNamespace"/></param>
-		/// <returns>Current configuration instance (to be able to configure fluently)</returns>
-		public FluentTargetConfiguration AddTarget(string name)
-		{
-			var target = new FluentTargetConfiguration(this, name);
-			_targets.Add(target);
-			return target;
-		}
+        /// <summary>
+        /// Configure a target that log entries can be written to
+        /// </summary>
+        /// <param name="name">Name of the target. Must be the same as used by <see cref="LogNamespace"/></param>
+        /// <returns>Current configuration instance (to be able to configure fluently)</returns>
+        public FluentTargetConfiguration AddTarget(string name)
+        {
+            var target = new FluentTargetConfiguration(this, name);
+            _targets.Add(target);
+            return target;
+        }
 
-		/// <summary>
-		/// Log a specific name space to a named target (see <see cref="AddTarget"/> method)
-		/// </summary>
-		/// <param name="name">Name space to log</param>
-		/// <returns>Current configuration instance (to be able to configure fluently)</returns>
-		public FluentNamespaceLogging LogNamespace(string name)
-		{
-			var ns = new FluentNamespaceLogging(this, name);
-			_namespaces.Add(ns);
-			return ns;
-		}
+        /// <summary>
+        /// Log a specific name space to a named target (see <see cref="AddTarget"/> method)
+        /// </summary>
+        /// <param name="namespace">Namespace to log. No wildcards etc.</param>
+        /// <returns>Current configuration instance (to be able to configure fluently)</returns>
+        public FluentNamespaceLogging LogNamespace(string @namespace)
+        {
+            var ns = new FluentNamespaceLogging(this, @namespace);
+            _namespaces.Add(ns);
+            return ns;
+        }
 
-		/// <summary>
-		/// Build the logging configuration and assign a log manager.
-		/// </summary>
-		/// <returns></returns>
-		/// <remarks>
-		/// Call this method to generate the configuration. It will also assign a LogManager which means that
-		/// everything is set to start using the logging system.
-		/// </remarks>
-		public void Build()
-		{
-			var logManager = new FluentLogManager();
-			logManager.AddNamespaceFilters(_namespaces);
-			logManager.AddTargets(_targets);
-			LogManager.Assign(logManager);
-			//return Configure.Griffin;
-		}
-	}
+        /// <summary>
+        /// Build the logging configuration and assign a log manager.
+        /// </summary>
+        /// <returns>Generated log manager</returns>
+        /// <remarks>
+        /// Call this method to generate the configuration. It will also assign the LogManager so you can start 
+        /// logging after calling this method.
+        /// </remarks>
+        public FluentLogManager Build()
+        {
+            var logManager = new FluentLogManager();
+            logManager.AddNamespaceFilters(_namespaces);
+            logManager.AddTargets(_targets);
+            LogManager.Assign(logManager);
+            return logManager;
+        }
+    }
 }

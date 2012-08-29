@@ -10,8 +10,6 @@ namespace Griffin.Logging.Tests.Targets
         private readonly List<IPostFilter> _filters = new List<IPostFilter>();
         private List<LogEntry> _entries = new List<LogEntry>();
 
-        public string Name { get; set; }
-
         public List<IPostFilter> Filters
         {
             get { return _filters; }
@@ -22,6 +20,10 @@ namespace Griffin.Logging.Tests.Targets
             get { return _entries; }
             set { _entries = value; }
         }
+
+        #region ILogTarget Members
+
+        public string Name { get; set; }
 
         public void AddFilter(IPostFilter filter)
         {
@@ -35,5 +37,7 @@ namespace Griffin.Logging.Tests.Targets
 
             Entries.Add(entry);
         }
+
+        #endregion
     }
 }

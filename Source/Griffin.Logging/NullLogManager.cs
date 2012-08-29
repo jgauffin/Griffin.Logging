@@ -21,20 +21,20 @@ using System;
 
 namespace Griffin.Logging
 {
-	/// <summary>
-	/// Simple wrapper to be able to provide logging objects even if no logging framework have been specified.
-	/// </summary>
-	internal class NullLogManager : ILogManager
-	{
-		private static readonly NullLogger Logger = new NullLogger();
+    /// <summary>
+    /// Simple wrapper to be able to provide logging objects even if no logging framework have been specified.
+    /// </summary>
+    internal class NullLogManager : ILogManager
+    {
+        private static readonly NullLogger Logger = new NullLogger();
 
-		#region ILogManager Members
+        #region ILogManager Members
 
-		public ILogger GetLogger(Type type)
-		{
-			return Logger;
-		}
+        public ILogger GetLogger(Type type)
+        {
+            return Logger;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

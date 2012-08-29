@@ -1,19 +1,49 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Text;
 
 namespace Griffin.TestTools.Data
 {
     public class FakeDbConnection : DbConnection
     {
-        private List<FakeCommand> _commands = new List<FakeCommand>();
-
-        public DataTable NextResult { get; set; }
+        private readonly List<FakeCommand> _commands = new List<FakeCommand>();
 
         public FakeDbConnection(DataTable nextResult)
         {
             NextResult = nextResult;
+        }
+
+        public DataTable NextResult { get; set; }
+        public string CurrentDatabase { get; set; }
+        public override string ConnectionString { get; set; }
+
+        public string DatabaseReturned { get; set; }
+
+        public override string Database
+        {
+            get { return DatabaseReturned; }
+        }
+
+        public override string DataSource
+        {
+            get { return "FakeProvider"; }
+        }
+
+        public override string ServerVersion
+        {
+            get { return "40"; }
+        }
+
+        public override ConnectionState State
+        {
+            get { return StateReturned; }
+        }
+
+        public ConnectionState StateReturned { get; set; }
+
+        public List<FakeCommand> Commands
+        {
+            get { return _commands; }
         }
 
         public new void Dispose()
@@ -27,7 +57,6 @@ namespace Griffin.TestTools.Data
         {
             StateReturned = ConnectionState.Closed;
             Commands.Clear();
-            
         }
 
         protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
@@ -56,11 +85,9 @@ namespace Griffin.TestTools.Data
             CurrentDatabase = databaseName;
         }
 
-        public string CurrentDatabase { get; set; }
-
         public new IDbCommand CreateCommand()
         {
-            var cmd= new FakeCommand(this, NextResult);
+            var cmd = new FakeCommand(this, NextResult);
             Commands.Add(cmd);
             return cmd;
         }
@@ -76,31 +103,6 @@ namespace Griffin.TestTools.Data
         public override void Open()
         {
             StateReturned = ConnectionState.Open;
-        }
-
-        public override string ConnectionString { get; set; }
-
-        public string DatabaseReturned { get; set; }
-
-        public override string Database { get { return DatabaseReturned; } }
-
-        public override string DataSource
-        {
-            get { return "FakeProvider"; }
-        }
-
-        public override string ServerVersion
-        {
-            get { return "40"; }
-        }
-
-        public override ConnectionState State { get { return StateReturned; } }
-
-        public ConnectionState StateReturned { get; set; }
-
-        public List<FakeCommand> Commands
-        {
-            get { return _commands; }
         }
     }
 }

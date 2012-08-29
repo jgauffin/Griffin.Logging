@@ -25,92 +25,92 @@ using Griffin.Logging.Targets;
 
 namespace Griffin.Logging
 {
-	/// <summary>
-	/// Log manager which is configured using the fluent interface.
-	/// </summary>
-	internal class FluentLogManager : ILogManager
-	{
-		private List<FluentNamespaceLogging> _namespaces;
-		private List<FluentTargetConfiguration> _targets;
+    /// <summary>
+    /// Log manager which is configured using the fluent interface.
+    /// </summary>
+    public class FluentLogManager : ILogManager
+    {
+        private List<FluentNamespaceLogging> _namespaces;
+        private List<FluentTargetConfiguration> _targets;
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="FluentLogManager"/> class.
-		/// </summary>
-		/// <remarks>
-		/// Will assign itself to the <see cref="LogManager"/> class.
-		/// </remarks>
-		public FluentLogManager()
-		{
-			LogManager.Assign(this);
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FluentLogManager"/> class.
+        /// </summary>
+        /// <remarks>
+        /// Will assign itself to the <see cref="LogManager"/> class.
+        /// </remarks>
+        public FluentLogManager()
+        {
+            LogManager.Assign(this);
+        }
 
-		#region ILogManager Members
+        #region ILogManager Members
 
-		/// <summary>
-		/// Get a logger for the specified type
-		/// </summary>
-		/// <param name="type">Type that requests a logger</param>
-		/// <returns>
-		/// A logger (always)
-		/// </returns>
-		public ILogger GetLogger(Type type)
-		{
-			var targets = new List<ILogTarget>();
+        /// <summary>
+        /// Get a logger for the specified type
+        /// </summary>
+        /// <param name="type">Type that requests a logger</param>
+        /// <returns>
+        /// A logger (always)
+        /// </returns>
+        public ILogger GetLogger(Type type)
+        {
+            var targets = new List<ILogTarget>();
 
-			foreach (var ns in _namespaces)
-			{
-				if (!ns.IsForType(type))
-					continue;
+            foreach (var ns in _namespaces)
+            {
+                if (!ns.IsForType(type))
+                    continue;
 
-				foreach (var targetName in ns.Targets)
-				{
-					var name = targetName;
-					var targetConfig = _targets.FirstOrDefault(tg => tg.Name == name);
-					if (targetConfig == null)
-						throw new ConfigurationErrorsException("Failed to find target named '" + name +
-						                                       "', you must configure targets first.");
+                foreach (var targetName in ns.Targets)
+                {
+                    var name = targetName;
+                    var targetConfig = _targets.FirstOrDefault(tg => tg.Name == name);
+                    if (targetConfig == null)
+                        throw new ConfigurationErrorsException("Failed to find target named '" + name +
+                                                               "', you must configure targets first.");
 
-					foreach (var target in targetConfig.Targets)
-					{
-						var target1 = target;
-						if (!targets.Any(t => t.Name == target1.Name))
-							targets.Add(target);
-					}
-				}
-			}
+                    foreach (var target in targetConfig.Targets)
+                    {
+                        var target1 = target;
+                        if (!targets.Any(t => t.Name == target1.Name))
+                            targets.Add(target);
+                    }
+                }
+            }
 
-			return new Logger(type, targets);
-		}
+            return new Logger(type, targets);
+        }
 
-		#endregion
+        #endregion
 
-		private IEnumerable<ILogTarget> GetTargets(IEnumerable<string> names)
-		{
-			var targets = new List<ILogTarget>();
-			foreach (var targetName in names)
-			{
-				foreach (var target in _targets)
-				{
-					if (target.Name != targetName)
-						continue;
+        private IEnumerable<ILogTarget> GetTargets(IEnumerable<string> names)
+        {
+            var targets = new List<ILogTarget>();
+            foreach (var targetName in names)
+            {
+                foreach (var target in _targets)
+                {
+                    if (target.Name != targetName)
+                        continue;
 
-					foreach (var t in target.Targets)
-						if (!targets.Contains(t))
-							targets.Add(t);
-					break;
-				}
-			}
-			return targets;
-		}
+                    foreach (var t in target.Targets)
+                        if (!targets.Contains(t))
+                            targets.Add(t);
+                    break;
+                }
+            }
+            return targets;
+        }
 
-		internal void AddNamespaceFilters(List<FluentNamespaceLogging> namespaces)
-		{
-			_namespaces = namespaces;
-		}
+        internal void AddNamespaceFilters(List<FluentNamespaceLogging> namespaces)
+        {
+            _namespaces = namespaces;
+        }
 
-		internal void AddTargets(List<FluentTargetConfiguration> targets)
-		{
-			_targets = targets;
-		}
-	}
+        internal void AddTargets(List<FluentTargetConfiguration> targets)
+        {
+            _targets = targets;
+        }
+    }
 }

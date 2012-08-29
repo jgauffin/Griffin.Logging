@@ -4,11 +4,15 @@ namespace Griffin.Logging.Tests.Targets
 {
     public class TestPostFilter : IPostFilter
     {
+        public bool CanLogResult { get; set; }
+
+        #region IPostFilter Members
+
         public bool CanLog(LogEntry entry)
         {
             return CanLogResult;
         }
 
-        public bool CanLogResult { get; set; }
+        #endregion
     }
 }

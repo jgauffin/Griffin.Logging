@@ -21,52 +21,52 @@ using System;
 
 namespace Griffin.Logging.Targets
 {
-	/// <summary>
-	/// Settings used to control the log output to the console
-	/// </summary>
-	public class ConsoleConfiguration
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="ConsoleConfiguration"/> class.
-		/// </summary>
-		public ConsoleConfiguration()
-		{
-			DebugColor = ConsoleColor.Gray;
-			ErrorColor = ConsoleColor.Red;
-			WarningColor = ConsoleColor.Magenta;
-			InfoColor = ConsoleColor.White;
-		}
+    /// <summary>
+    /// Settings used to control the log output to the console
+    /// </summary>
+    public class ConsoleConfiguration
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConsoleConfiguration"/> class.
+        /// </summary>
+        public ConsoleConfiguration()
+        {
+            DebugColor = ConsoleColor.Gray;
+            ErrorColor = ConsoleColor.Red;
+            WarningColor = ConsoleColor.Magenta;
+            InfoColor = ConsoleColor.White;
+        }
 
-		/// <summary>
-		/// Gets or sets color of debug messages
-		/// </summary>
-		/// <value>
-		/// Default is Gray
-		/// </value>
-		public ConsoleColor DebugColor { get; set; }
+        /// <summary>
+        /// Gets or sets color of debug messages
+        /// </summary>
+        /// <value>
+        /// Default is Gray
+        /// </value>
+        public ConsoleColor DebugColor { get; set; }
 
-		/// <summary>
-		/// Gets or sets color of error messages
-		/// </summary>
-		/// <value>
-		/// Default is Red
-		/// </value>
-		public ConsoleColor ErrorColor { get; set; }
+        /// <summary>
+        /// Gets or sets color of error messages
+        /// </summary>
+        /// <value>
+        /// Default is Red
+        /// </value>
+        public ConsoleColor ErrorColor { get; set; }
 
-		/// <summary>
-		/// Gets or sets color of information messages
-		/// </summary>
-		/// <value>
-		/// Default is White
-		/// </value>
-		public ConsoleColor InfoColor { get; set; }
+        /// <summary>
+        /// Gets or sets color of information messages
+        /// </summary>
+        /// <value>
+        /// Default is White
+        /// </value>
+        public ConsoleColor InfoColor { get; set; }
 
-		/// <summary>
-		/// Gets or sets color of warning messages
-		/// </summary>
-		/// <value>
-		/// Default is Magenta.
-		/// </value>
-		public ConsoleColor WarningColor { get; set; }
-	}
+        /// <summary>
+        /// Gets or sets color of warning messages
+        /// </summary>
+        /// <value>
+        /// Default is Magenta.
+        /// </value>
+        public ConsoleColor WarningColor { get; set; }
+    }
 }

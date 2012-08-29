@@ -18,32 +18,30 @@
  */
 
 using System;
-using System.Diagnostics.Contracts;
 
 namespace Griffin.Logging
 {
-	/// <summary>
-	/// Responsible of creating loggers for all types that requests one.
-	/// </summary>
-	/// <seealso cref="LogManager"/>.
-	/// <remarks>
-	/// The purpose of this class is to create a fascade between the logger creation 
-	/// and the classes that requests a logger. It's up to each implementation to decide
-	/// if the same logger should be used for each class or if more complex filters and 
-	/// loggers are used.
-	/// </remarks>
-	[ContractClass(typeof (ILogManagerContract))]
-	public interface ILogManager
-	{
-		/// <summary>
-		/// Get a logger for the specified type
-		/// </summary>
-		/// <param name="type">Type that requests a logger</param>
-		/// <returns>A logger (always)</returns>
-		/// <remarks>
-		/// A logger should <c>always</c> be returned by this method. Simply use a empty
-		/// logger if none can be found.
-		/// </remarks>
-		ILogger GetLogger(Type type);
-	}
+    /// <summary>
+    /// Responsible of creating loggers for all types that requests one.
+    /// </summary>
+    /// <seealso cref="LogManager"/>.
+    /// <remarks>
+    /// The purpose of this class is to create a fascade between the logger creation 
+    /// and the classes that requests a logger. It's up to each implementation to decide
+    /// if the same logger should be used for each class or if more complex filters and 
+    /// loggers are used.
+    /// </remarks>
+    public interface ILogManager
+    {
+        /// <summary>
+        /// Get a logger for the specified type
+        /// </summary>
+        /// <param name="type">Type that requests a logger</param>
+        /// <returns>A logger (always)</returns>
+        /// <remarks>
+        /// A logger should <c>always</c> be returned by this method. Simply use a empty
+        /// logger if none can be found.
+        /// </remarks>
+        ILogger GetLogger(Type type);
+    }
 }

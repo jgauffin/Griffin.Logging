@@ -77,13 +77,13 @@ namespace Griffin.TestTools.Data
         protected override DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
         {
             CommandStrings.Add(CommandText);
-            ExecutedParameterCollections.Add(new FakeParameterCollection( _parameters));
+            ExecutedParameterCollections.Add(new FakeParameterCollection(_parameters));
             return new FakeDataReader(NextResult.Clone());
         }
 
         public override int ExecuteNonQuery()
         {
-            ExecutedParameterCollections.Add(new FakeParameterCollection( _parameters));
+            ExecutedParameterCollections.Add(new FakeParameterCollection(_parameters));
             CommandStrings.Add(CommandText);
             ExecuteNonQueryInvoked = true;
             return ExecuteNonQueryResult;
@@ -92,21 +92,21 @@ namespace Griffin.TestTools.Data
         public new IDataReader ExecuteReader()
         {
             CommandStrings.Add(CommandText);
-            ExecutedParameterCollections.Add(new FakeParameterCollection( _parameters));
+            ExecutedParameterCollections.Add(new FakeParameterCollection(_parameters));
             return ExecuteReaderResult;
         }
 
         public new IDataReader ExecuteReader(CommandBehavior behavior)
         {
             CommandStrings.Add(CommandText);
-            ExecutedParameterCollections.Add(new FakeParameterCollection( _parameters));
+            ExecutedParameterCollections.Add(new FakeParameterCollection(_parameters));
             return ExecuteReaderResult;
         }
 
         public override object ExecuteScalar()
         {
             CommandStrings.Add(CommandText);
-            ExecutedParameterCollections.Add(new FakeParameterCollection( _parameters));
+            ExecutedParameterCollections.Add(new FakeParameterCollection(_parameters));
             ExecuteScalarInvoked = true;
             return ExecuteScalarResult;
         }

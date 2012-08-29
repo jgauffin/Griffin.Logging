@@ -19,54 +19,54 @@
 
 namespace Griffin.Logging.Targets.File
 {
-	/// <summary>
-	/// File logger using padding for each column.
-	/// </summary>
-	/// <remarks>
-	/// Write a column based output to a file. Each column value is automatically truncated to fit
-	/// in a column
-	/// </remarks>
-	public class PaddedFileTarget : FileTarget
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="PaddedFileTarget"/> class.
-		/// </summary>
-		/// <param name="name">File name without extension</param>
-		/// <param name="configuration">The configuration.</param>
-		public PaddedFileTarget(string name, FileConfiguration configuration) : base(name, configuration)
-		{
-		}
+    /// <summary>
+    /// File logger using padding for each column.
+    /// </summary>
+    /// <remarks>
+    /// Write a column based output to a file. Each column value is automatically truncated to fit
+    /// in a column
+    /// </remarks>
+    public class PaddedFileTarget : FileTarget
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PaddedFileTarget"/> class.
+        /// </summary>
+        /// <param name="name">File name without extension</param>
+        /// <param name="configuration">The configuration.</param>
+        public PaddedFileTarget(string name, FileConfiguration configuration) : base(name, configuration)
+        {
+        }
 
-		/// <summary>
-		/// Format a log entry as it should be written to the file
-		/// </summary>
-		/// <param name="entry">Entry to format</param>
-		/// <returns>
-		/// Formatted entry
-		/// </returns>
-		protected override string FormatLogEntry(LogEntry entry)
-		{
-			if (entry.Exception != null)
-			{
-				return string.Format("{0} {1} {2} {3} {4} {5}\r\n{6}\r\n",
-				                     entry.CreatedAt.ToString(Configuration.DateTimeFormat),
-				                     entry.LogLevel.ToString().PadRight(8, ' '),
-				                     entry.ThreadId.ToString("000"),
-				                     FormatUserName(entry.UserName, 16).PadRight(16),
-				                     FormatStackTrace(entry.StackFrames, 40).PadRight(40),
-				                     FormatMessage(entry.Message),
-				                     FormatException(entry.Exception, 1)
-					);
-			}
+        /// <summary>
+        /// Format a log entry as it should be written to the file
+        /// </summary>
+        /// <param name="entry">Entry to format</param>
+        /// <returns>
+        /// Formatted entry
+        /// </returns>
+        protected override string FormatLogEntry(LogEntry entry)
+        {
+            if (entry.Exception != null)
+            {
+                return string.Format("{0} {1} {2} {3} {4} {5}\r\n{6}\r\n",
+                                     entry.CreatedAt.ToString(Configuration.DateTimeFormat),
+                                     entry.LogLevel.ToString().PadRight(8, ' '),
+                                     entry.ThreadId.ToString("000"),
+                                     FormatUserName(entry.UserName, 16).PadRight(16),
+                                     FormatCallingMethod(entry.LoggedType, entry.MethodName, 40).PadRight(40),
+                                     FormatMessage(entry.Message),
+                                     FormatException(entry.Exception, 1)
+                    );
+            }
 
-			return string.Format("{0} {1} {2} {3} {4} {5}\r\n",
-			                     entry.CreatedAt.ToString(Configuration.DateTimeFormat),
-			                     entry.LogLevel.ToString().PadRight(8, ' '),
-			                     entry.ThreadId.ToString("000"),
-			                     FormatUserName(entry.UserName, 16).PadRight(16),
-			                     FormatStackTrace(entry.StackFrames, 40).PadRight(40),
-			                     FormatMessage(entry.Message)
-				);
-		}
-	}
+            return string.Format("{0} {1} {2} {3} {4} {5}\r\n",
+                                 entry.CreatedAt.ToString(Configuration.DateTimeFormat),
+                                 entry.LogLevel.ToString().PadRight(8, ' '),
+                                 entry.ThreadId.ToString("000"),
+                                 FormatUserName(entry.UserName, 16).PadRight(16),
+                                 FormatCallingMethod(entry.LoggedType, entry.MethodName, 40).PadRight(40),
+                                 FormatMessage(entry.Message)
+                );
+        }
+    }
 }

@@ -11,10 +11,10 @@ namespace Griffin.Logging.Tests
         {
             // true will create a console if it do not exist.
             // perfect for debugging winfoms/wfp applications.
-            SimpleLogManager.AddConsole(true);
+            SimpleLogManager.Instance.AddConsole(true);
 
             // Will create a file log
-            SimpleLogManager.AddFile("Mylog");
+            SimpleLogManager.Instance.AddFile("Mylog");
 
             // and assign a logger.
             _logger = LogManager.GetLogger<SimpleLogManagerTest>();
@@ -27,10 +27,10 @@ namespace Griffin.Logging.Tests
             // one method per log level
             _logger.Debug("We are in some method");
 
-            int i = 0;
+            var i = 0;
             try
             {
-                int a = 5/i;
+                var a = 5/i;
             }
             catch (Exception err)
             {

@@ -5,8 +5,8 @@ namespace Griffin.TestTools.Data
 {
     public class FakeTransaction : DbTransaction
     {
-        private DbConnection _connection;
-        private IsolationLevel _isolationLevel;
+        private readonly DbConnection _connection;
+        private readonly IsolationLevel _isolationLevel;
 
         public FakeTransaction(DbConnection connection)
         {
@@ -17,6 +17,20 @@ namespace Griffin.TestTools.Data
         {
             _connection = connection;
             _isolationLevel = il;
+        }
+
+        public bool IsCommitted { get; set; }
+
+        public bool IsRolledBack { get; set; }
+
+        protected override DbConnection DbConnection
+        {
+            get { return _connection; }
+        }
+
+        public override IsolationLevel IsolationLevel
+        {
+            get { return _isolationLevel; }
         }
 
         public new void Dispose()
@@ -35,23 +49,9 @@ namespace Griffin.TestTools.Data
             IsCommitted = true;
         }
 
-        public bool IsCommitted { get; set; }
-
         public override void Rollback()
         {
             IsRolledBack = true;
-        }
-
-        public bool IsRolledBack { get; set; }
-
-        protected override DbConnection DbConnection
-        {
-            get { return _connection; }
-        }
-
-        public override IsolationLevel IsolationLevel
-        {
-            get { return _isolationLevel; }
         }
     }
 }

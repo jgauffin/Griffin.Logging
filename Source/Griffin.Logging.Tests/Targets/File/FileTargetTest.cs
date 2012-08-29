@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
+using System.Reflection;
 using System.Threading;
 using Griffin.Logging.Targets.File;
 using Xunit;
@@ -11,10 +8,10 @@ namespace Griffin.Logging.Tests.Targets.File
 {
     public class FileTargetTest : FileTarget
     {
-        private string _message;
         private string _exception;
-        private string _stacktrace;
         private string _logEntry;
+        private string _message;
+        private string _stacktrace;
         private string _userName;
 
         public FileTargetTest() : base(TestWriter.Instance)
@@ -25,15 +22,15 @@ namespace Griffin.Logging.Tests.Targets.File
         public void TestLongUserName()
         {
             var entry = new LogEntry
-                        {
-                            CreatedAt = DateTime.Now,
-                            LoggedType = GetType(),
-                            LogLevel = LogLevel.Error,
-                            Message = "Hej\r\nTvå rader",
-                            ThreadId = Thread.CurrentThread.ManagedThreadId,
-                            UserName = "OmgLongUserNameWithATwistAndSomeMoreCharacters",
-                            StackFrames = new StackTrace(1).GetFrames(),
-                        };
+                {
+                    CreatedAt = DateTime.Now,
+                    LoggedType = GetType(),
+                    LogLevel = LogLevel.Error,
+                    Message = "Hej\r\nTvå rader",
+                    ThreadId = Thread.CurrentThread.ManagedThreadId,
+                    UserName = "OmgLongUserNameWithATwistAndSomeMoreCharacters",
+                    MethodName = MethodBase.GetCurrentMethod().Name
+                };
             Enqueue(entry);
             Assert.Equal("OmgLongUserNameWithATwistAndSomeMoreCha.", _userName);
         }
@@ -42,15 +39,15 @@ namespace Griffin.Logging.Tests.Targets.File
         public void TestLongUserNameWithDomain()
         {
             var entry = new LogEntry
-            {
-                CreatedAt = DateTime.Now,
-                LoggedType = GetType(),
-                LogLevel = LogLevel.Error,
-                Message = "Hej\r\nTvå rader",
-                ThreadId = Thread.CurrentThread.ManagedThreadId,
-                UserName = "DomainName\\OmgLongUserNameWithATwistAndSomeMore",
-                StackFrames = new StackTrace(1).GetFrames(),
-            };
+                {
+                    CreatedAt = DateTime.Now,
+                    LoggedType = GetType(),
+                    LogLevel = LogLevel.Error,
+                    Message = "Hej\r\nTvå rader",
+                    ThreadId = Thread.CurrentThread.ManagedThreadId,
+                    UserName = "DomainName\\OmgLongUserNameWithATwistAndSomeMore",
+                    MethodName = MethodBase.GetCurrentMethod().Name
+                };
             Enqueue(entry);
             Assert.Equal("OmgLongUserNameWithATwistAndSomeMore", _userName);
         }
@@ -59,15 +56,15 @@ namespace Griffin.Logging.Tests.Targets.File
         public void TestUserName()
         {
             var entry = new LogEntry
-            {
-                CreatedAt = DateTime.Now,
-                LoggedType = GetType(),
-                LogLevel = LogLevel.Error,
-                Message = "Hej\r\nTvå rader",
-                ThreadId = Thread.CurrentThread.ManagedThreadId,
-                UserName = "OmgLongUserNameWithATwistAndSomeMore",
-                StackFrames = new StackTrace(1).GetFrames(),
-            };
+                {
+                    CreatedAt = DateTime.Now,
+                    LoggedType = GetType(),
+                    LogLevel = LogLevel.Error,
+                    Message = "Hej\r\nTvå rader",
+                    ThreadId = Thread.CurrentThread.ManagedThreadId,
+                    UserName = "OmgLongUserNameWithATwistAndSomeMore",
+                    MethodName = MethodBase.GetCurrentMethod().Name
+                };
             Enqueue(entry);
             Assert.Equal("OmgLongUserNameWithATwistAndSomeMore", _userName);
         }
@@ -76,20 +73,18 @@ namespace Griffin.Logging.Tests.Targets.File
         public void TestMultiRowMessage()
         {
             var entry = new LogEntry
-            {
-                CreatedAt = DateTime.Now,
-                LoggedType = GetType(),
-                LogLevel = LogLevel.Error,
-                Message = "Hej\r\nTvå rader",
-                ThreadId = Thread.CurrentThread.ManagedThreadId,
-                UserName = "OmgLongUserNameWithATwistAndSomeMore",
-                StackFrames = new StackTrace(1).GetFrames(),
-            };
+                {
+                    CreatedAt = DateTime.Now,
+                    LoggedType = GetType(),
+                    LogLevel = LogLevel.Error,
+                    Message = "Hej\r\nTvå rader",
+                    ThreadId = Thread.CurrentThread.ManagedThreadId,
+                    UserName = "OmgLongUserNameWithATwistAndSomeMore",
+                    MethodName = MethodBase.GetCurrentMethod().Name,
+                };
             Enqueue(entry);
             Assert.Equal("Hej\r\n\tTvå rader", _message);
         }
-
-
 
 
         protected override string FormatException(Exception exception, int intendation)
@@ -104,9 +99,9 @@ namespace Griffin.Logging.Tests.Targets.File
             return _logEntry;
         }
 
-        protected override string FormatStackTrace(System.Diagnostics.StackFrame[] frames, int maxSize)
+        protected override string FormatCallingMethod(Type loggingType, string callingMethod, int maxSize)
         {
-            _stacktrace = base.FormatStackTrace(frames, maxSize);
+            _stacktrace = base.FormatCallingMethod(loggingType, callingMethod, maxSize);
             return _stacktrace;
         }
 
@@ -115,6 +110,7 @@ namespace Griffin.Logging.Tests.Targets.File
             _userName = base.FormatUserName(userName, maxSize);
             return _userName;
         }
+
         protected override string FormatMessage(string message)
         {
             _message = base.FormatMessage(message);

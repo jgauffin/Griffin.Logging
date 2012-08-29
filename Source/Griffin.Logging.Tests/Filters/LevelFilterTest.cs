@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Griffin.Logging.Filters;
+﻿using Griffin.Logging.Filters;
 using Xunit;
 
 namespace Griffin.Logging.Tests.Filters
@@ -16,12 +12,12 @@ namespace Griffin.Logging.Tests.Filters
             var actual = filter.CanLog(new LogEntry {LogLevel = LogLevel.Info});
             Assert.True(actual);
         }
-        
+
         [Fact]
         public void TestInRange()
         {
             var filter = new LevelFilter(LogLevel.Debug, LogLevel.Warning);
-            var actual = filter.CanLog(new LogEntry { LogLevel = LogLevel.Info });
+            var actual = filter.CanLog(new LogEntry {LogLevel = LogLevel.Info});
             Assert.True(actual);
         }
 
@@ -29,7 +25,7 @@ namespace Griffin.Logging.Tests.Filters
         public void TestInRangeUpperLimit()
         {
             var filter = new LevelFilter(LogLevel.Info, LogLevel.Warning);
-            var actual = filter.CanLog(new LogEntry { LogLevel = LogLevel.Warning });
+            var actual = filter.CanLog(new LogEntry {LogLevel = LogLevel.Warning});
             Assert.True(actual);
         }
 
@@ -37,7 +33,7 @@ namespace Griffin.Logging.Tests.Filters
         public void TestLessThanLowerLimit()
         {
             var filter = new LevelFilter(LogLevel.Info, LogLevel.Warning);
-            var actual = filter.CanLog(new LogEntry { LogLevel = LogLevel.Debug });
+            var actual = filter.CanLog(new LogEntry {LogLevel = LogLevel.Debug});
             Assert.False(actual);
         }
 
@@ -45,7 +41,7 @@ namespace Griffin.Logging.Tests.Filters
         public void TestMoreThanUpperLimit()
         {
             var filter = new LevelFilter(LogLevel.Info, LogLevel.Warning);
-            var actual = filter.CanLog(new LogEntry { LogLevel = LogLevel.Error });
+            var actual = filter.CanLog(new LogEntry {LogLevel = LogLevel.Error});
             Assert.False(actual);
         }
     }

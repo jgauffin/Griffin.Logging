@@ -19,25 +19,25 @@
 
 namespace Griffin.Logging.Targets.File
 {
-	/// <summary>
-	/// Used to write a log file to a file
-	/// </summary>
-	public interface IFileWriter
-	{
-		/// <summary>
-		/// Gets configuration that is used.
-		/// </summary>
-		FileConfiguration Configuration { get; }
+    /// <summary>
+    /// Used to write a log file to a file
+    /// </summary>
+    public interface IFileWriter
+    {
+        /// <summary>
+        /// Gets configuration that is used.
+        /// </summary>
+        FileConfiguration Configuration { get; }
 
-		/// <summary>
-		/// Gets file name
-		/// </summary>
-		string Name { get; }
+        /// <summary>
+        /// Gets file name
+        /// </summary>
+        string Name { get; }
 
-		/// <summary>
-		/// Write an entry to the file
-		/// </summary>
-		/// <param name="logEntry">Entry to write.</param>
-		void Write(string logEntry);
-	}
+        /// <summary>
+        /// Write an entry to the file
+        /// </summary>
+        /// <param name="logEntry">Entry to write.</param>
+        void Write(string logEntry);
+    }
 }

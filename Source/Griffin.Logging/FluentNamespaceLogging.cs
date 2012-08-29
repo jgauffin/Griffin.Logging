@@ -22,104 +22,104 @@ using System.Collections.Generic;
 
 namespace Griffin.Logging
 {
-	/// <summary>
-	/// Used to configure wich target(s) each namespace should usee.
-	/// </summary>
-	/// <example>
-	/// <code>
-	/// Configure.Griffin.Logging()
-	///     .LogNamespace("Griffin").AndChildNamespaces.ToTargetName("Console").Done
-	///     .AddTarget("Console").As.ConsoleLogger
-	///     .Build();
-	/// </code>
-	/// 
-	/// </example>
-	public class FluentNamespaceLogging
-	{
-		private readonly FluentConfiguration _configuration;
-		private readonly List<string> _targets = new List<string>();
+    /// <summary>
+    /// Used to configure wich target(s) each namespace should usee.
+    /// </summary>
+    /// <example>
+    /// <code>
+    /// Configure.Griffin.Logging()
+    ///     .LogNamespace("Griffin").AndChildNamespaces.ToTargetName("Console").Done
+    ///     .AddTarget("Console").As.ConsoleLogger
+    ///     .Build();
+    /// </code>
+    /// 
+    /// </example>
+    public class FluentNamespaceLogging
+    {
+        private readonly FluentConfiguration _configuration;
+        private readonly List<string> _targets = new List<string>();
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="FluentNamespaceLogging"/> class.
-		/// </summary>
-		/// <param name="configuration">Base logging configuration.</param>
-		/// <param name="name">Namespace name.</param>
-		public FluentNamespaceLogging(FluentConfiguration configuration, string name)
-		{
-			Name = name;
-			_configuration = configuration;
-		}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FluentNamespaceLogging"/> class.
+        /// </summary>
+        /// <param name="configuration">Base logging configuration.</param>
+        /// <param name="name">Namespace name.</param>
+        public FluentNamespaceLogging(FluentConfiguration configuration, string name)
+        {
+            Name = name;
+            _configuration = configuration;
+        }
 
-		/// <summary>
-		/// Gets if chld namespaces should be included.
-		/// </summary>
-		public FluentNamespaceLogging AndChildNamespaces
-		{
-			get
-			{
-				LogChildNamespaces = true;
-				return this;
-			}
-		}
+        /// <summary>
+        /// Gets if chld namespaces should be included.
+        /// </summary>
+        public FluentNamespaceLogging AndChildNamespaces
+        {
+            get
+            {
+                LogChildNamespaces = true;
+                return this;
+            }
+        }
 
-		/// <summary>
-		/// Name space configuration is completed
-		/// </summary>
-		public FluentConfiguration Done
-		{
-			get { return _configuration; }
-		}
+        /// <summary>
+        /// Name space configuration is completed
+        /// </summary>
+        public FluentConfiguration Done
+        {
+            get { return _configuration; }
+        }
 
-		/// <summary>
-		/// Gets name of the namespace.
-		/// </summary>
-		public string Name { get; set; }
+        /// <summary>
+        /// Gets name of the namespace.
+        /// </summary>
+        public string Name { get; set; }
 
-		/// <summary>
-		/// Log child namespaces.
-		/// </summary>
-		internal bool LogChildNamespaces { get; private set; }
+        /// <summary>
+        /// Log child namespaces.
+        /// </summary>
+        internal bool LogChildNamespaces { get; private set; }
 
-		/// <summary>
-		/// Gets all targets
-		/// </summary>
-		internal IEnumerable<string> Targets
-		{
-			get { return _targets; }
-		}
+        /// <summary>
+        /// Gets all targets
+        /// </summary>
+        internal IEnumerable<string> Targets
+        {
+            get { return _targets; }
+        }
 
-		/// <summary>
-		/// Log to a specific target
-		/// </summary>
-		/// <param name="name">Target alias</param>
-		/// <returns>Base logging configuration</returns>
-		/// <seealso cref="FluentTargetConfiguration"/>.
-		public FluentConfiguration ToTargetNamed(string name)
-		{
-			_targets.Add(name);
-			return _configuration;
-		}
+        /// <summary>
+        /// Log to a specific target
+        /// </summary>
+        /// <param name="name">Target alias</param>
+        /// <returns>Base logging configuration</returns>
+        /// <seealso cref="FluentTargetConfiguration"/>.
+        public FluentConfiguration ToTargetNamed(string name)
+        {
+            _targets.Add(name);
+            return _configuration;
+        }
 
-		/// <summary>
-		/// Log this namespace to several targets
-		/// </summary>
-		/// <param name="names">Target aliases.</param>
-		/// <returns>Base logging configuration</returns>
-		/// <seealso cref="FluentTargetConfiguration"/>.
-		public FluentConfiguration ToTargetsNamed(params string[] names)
-		{
-			_targets.AddRange(names);
-			return _configuration;
-		}
+        /// <summary>
+        /// Log this namespace to several targets
+        /// </summary>
+        /// <param name="names">Target aliases.</param>
+        /// <returns>Base logging configuration</returns>
+        /// <seealso cref="FluentTargetConfiguration"/>.
+        public FluentConfiguration ToTargetsNamed(params string[] names)
+        {
+            _targets.AddRange(names);
+            return _configuration;
+        }
 
-		/// <summary>
-		/// Check if this namespace configuration is valid for the specified type.
-		/// </summary>
-		/// <param name="type">Type to validate</param>
-		/// <returns><c>true</c> if this namespace can log the specified type; otherwise <c>false</c>.</returns>
-		public bool IsForType(Type type)
-		{
-			return LogChildNamespaces ? Name.StartsWith(type.Namespace) : Name == type.Namespace;
-		}
-	}
+        /// <summary>
+        /// Check if this namespace configuration is valid for the specified type.
+        /// </summary>
+        /// <param name="type">Type to validate</param>
+        /// <returns><c>true</c> if this namespace can log the specified type; otherwise <c>false</c>.</returns>
+        public bool IsForType(Type type)
+        {
+            return LogChildNamespaces ? type.Namespace.StartsWith(Name) : Name == type.Namespace;
+        }
+    }
 }

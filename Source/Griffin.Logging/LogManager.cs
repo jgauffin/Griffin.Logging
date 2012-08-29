@@ -18,81 +18,80 @@
  */
 
 using System;
-using System.Diagnostics.Contracts;
 
 namespace Griffin.Logging
 {
-	/// <summary>
-	/// Logging framework fascade.
-	/// </summary>
-	/// <remarks>
-	/// <para>
-	/// A custom logger is configured by default writing all log entries to void. 
-	/// </para>
-	/// <para>
-	/// Takes care of resolving which loggers a requesting class should get. A <see cref="ILogger"/> implementation
-	/// can either log to one targets or multiple ones depending on the configuration.
-	/// </para>
-	/// <para>
-	/// This is a singleton facade. The motivation to use the pattern is that it's not always feasible to use
-	/// an inversion of control container to build loggers. And an IoC container might not be used for all projects
-	/// that use the logging framework. Using a singleton facade instead of a pure singleton makes it easier to
-	/// create custom implementations without exposing them to the user.
-	/// </para>
-	/// </remarks>
-	/// <example>
-	/// <code>
-	/// <![CDATA[
-	/// public class YourClass
-	/// {
-	///     private ILogger _logger = LogManager.GetLogger<YourClass>();
-	/// 
-	///     public void Start()
-	///     {
-	///         _logger.Info("Hello world!");
-	///     }
-	/// }
-	/// ]]>
-	/// </code>
-	/// </example>
-	public class LogManager
-	{
-		private static ILogManager _logManager = new NullLogManager();
+    /// <summary>
+    /// Logging framework fascade.
+    /// </summary>
+    /// <remarks>
+    /// <para>
+    /// A custom logger is configured by default writing all log entries to void. 
+    /// </para>
+    /// <para>
+    /// Takes care of resolving which loggers a requesting class should get. A <see cref="ILogger"/> implementation
+    /// can either log to one targets or multiple ones depending on the configuration.
+    /// </para>
+    /// <para>
+    /// This is a singleton facade. The motivation to use the pattern is that it's not always feasible to use
+    /// an inversion of control container to build loggers. And an IoC container might not be used for all projects
+    /// that use the logging framework. Using a singleton facade instead of a pure singleton makes it easier to
+    /// create custom implementations without exposing them to the user.
+    /// </para>
+    /// </remarks>
+    /// <example>
+    /// <code>
+    /// <![CDATA[
+    /// public class YourClass
+    /// {
+    ///     private ILogger _logger = LogManager.GetLogger<YourClass>();
+    /// 
+    ///     public void Start()
+    ///     {
+    ///         _logger.Info("Hello world!");
+    ///     }
+    /// }
+    /// ]]>
+    /// </code>
+    /// </example>
+    public class LogManager
+    {
+        private static ILogManager _logManager = new NullLogManager();
 
-		/// <summary>
-		/// Assigns the specified log manager.
-		/// </summary>
-		/// <param name="logManager">The log manager.</param>
-		/// <remarks>
-		/// Assigns a log manager which will be used to generate loggers for
-		/// each class that requests one.
-		/// </remarks>
-		public static void Assign(ILogManager logManager)
-		{
-			Contract.Requires<ArgumentNullException>(logManager != null);
-			_logManager = logManager;
-		}
+        /// <summary>
+        /// Assigns the specified log manager.
+        /// </summary>
+        /// <param name="logManager">The log manager.</param>
+        /// <remarks>
+        /// Assigns a log manager which will be used to generate loggers for
+        /// each class that requests one.
+        /// </remarks>
+        public static void Assign(ILogManager logManager)
+        {
+            if (logManager == null) throw new ArgumentNullException("logManager");
 
-		/// <summary>
-		/// Get logger for the specified type
-		/// </summary>
-		/// <param name="type">Type to get logger for</param>
-		/// <returns>A logger implementation.</returns>
-		public static ILogger GetLogger(Type type)
-		{
-			Contract.Requires<ArgumentNullException>(type != null);
-			Contract.Ensures(Contract.Result<ILogger>() != null);
-			return _logManager.GetLogger(type);
-		}
+            _logManager = logManager;
+        }
 
-		/// <summary>
-		/// Get logger for the specified type
-		/// </summary>
-		/// <returns>A logger implementation.</returns>
-		public static ILogger GetLogger<T>()
-		{
-			Contract.Ensures(Contract.Result<ILogger>() != null);
-			return _logManager.GetLogger(typeof (T));
-		}
-	}
+        /// <summary>
+        /// Get logger for the specified type
+        /// </summary>
+        /// <param name="type">Type to get logger for</param>
+        /// <returns>A logger implementation.</returns>
+        public static ILogger GetLogger(Type type)
+        {
+            if (type == null) throw new ArgumentNullException("type");
+
+            return _logManager.GetLogger(type);
+        }
+
+        /// <summary>
+        /// Get logger for the specified type
+        /// </summary>
+        /// <returns>A logger implementation.</returns>
+        public static ILogger GetLogger<T>()
+        {
+            return _logManager.GetLogger(typeof (T));
+        }
+    }
 }

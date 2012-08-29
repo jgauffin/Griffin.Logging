@@ -17,34 +17,37 @@
  * MA 02110-1301 USA
  */
 
+using System;
+
 namespace Griffin.Logging
 {
-	/// <summary>
-	/// Log levels
-	/// </summary>
-	public enum LogLevel
-	{
-		/// <summary>
-		/// Debug entries are usually used only when debugging. They can be used to track
-		/// variables or method contracts. There might be several debug entries per method
-		/// </summary>
-		Debug,
+    /// <summary>
+    /// Log levels
+    /// </summary>
+    [Serializable]
+    public enum LogLevel
+    {
+        /// <summary>
+        /// Debug entries are usually used only when debugging. They can be used to track
+        /// variables or method contracts. There might be several debug entries per method
+        /// </summary>
+        Debug,
 
-		/// <summary>
-		/// Informational messages are used to track state changes such as login, logout, record updates etc. 
-		/// There are at most one entry per method
-		/// </summary>
-		Info,
+        /// <summary>
+        /// Informational messages are used to track state changes such as login, logout, record updates etc. 
+        /// There are at most one entry per method
+        /// </summary>
+        Info,
 
-		/// <summary>
-		/// Warnings are used when something unexpected happend but the application can handle it and continue as expected.
-		/// </summary>
-		Warning,
+        /// <summary>
+        /// Warnings are used when something unexpected happend but the application can handle it and continue as expected.
+        /// </summary>
+        Warning,
 
-		/// <summary>
-		/// Errors are when something unexpected happens and the application cannot deliver result as expected. It might or might not
-		/// mean that the application has to be restarted.
-		/// </summary>
-		Error
-	}
+        /// <summary>
+        /// Errors are when something unexpected happens and the application cannot deliver result as expected. It might or might not
+        /// mean that the application has to be restarted.
+        /// </summary>
+        Error
+    }
 }

@@ -19,66 +19,66 @@
 
 namespace Griffin.Logging.Targets.File
 {
-	/// <summary>
-	/// Configuration used by file targets
-	/// </summary>
-	/// <remarks>
-	/// Check each property for their default values.
-	/// </remarks>
-	public class FileConfiguration
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="FileConfiguration"/> class.
-		/// </summary>
-		public FileConfiguration()
-		{
-			DateFormat = "yyyy-MM-dd";
-			DateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
-			DaysToKeep = 30;
-		}
+    /// <summary>
+    /// Configuration used by file targets
+    /// </summary>
+    /// <remarks>
+    /// Check each property for their default values.
+    /// </remarks>
+    public class FileConfiguration
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="FileConfiguration"/> class.
+        /// </summary>
+        public FileConfiguration()
+        {
+            DateFormat = "yyyy-MM-dd";
+            DateTimeFormat = "yyyy-MM-dd HH:mm:ss.fff";
+            DaysToKeep = 30;
+        }
 
-		/// <summary>
-		/// Gets or sets location to save logs.
-		/// </summary>
-		/// <value>
-		/// Directory name trailed by a path seperator
-		/// </value>
-		public string Path { get; set; }
+        /// <summary>
+        /// Gets or sets location to save logs.
+        /// </summary>
+        /// <value>
+        /// Directory name trailed by a path seperator
+        /// </value>
+        public string Path { get; set; }
 
-		/// <summary>
-		/// Gets or sets number of days to keep logs.
-		/// </summary>
-		/// <value>
-		/// Default is 30 days
-		/// </value>
-		public int DaysToKeep { get; set; }
+        /// <summary>
+        /// Gets or sets number of days to keep logs.
+        /// </summary>
+        /// <value>
+        /// Default is 30 days
+        /// </value>
+        public int DaysToKeep { get; set; }
 
-		/// <summary>
-		/// Gets or sets create a sub folder and place log in it
-		/// </summary>
-		/// <seealso cref="DateFormat"/>
-		public bool CreateDateFolder { get; set; }
+        /// <summary>
+        /// Gets or sets create a sub folder and place log in it
+        /// </summary>
+        /// <seealso cref="DateFormat"/>
+        public bool CreateDateFolder { get; set; }
 
-		/// <summary>
-		/// Gets or sets format to use for dates.
-		/// </summary>
-		/// <remarks>
-		/// Used when creating folder (when <see cref="CreateDateFolder"/> is set to <c>true</c>).
-		/// </remarks>
-		/// <value>
-		/// Default is yyyy-MM-dd
-		/// </value>
-		public string DateFormat { get; set; }
+        /// <summary>
+        /// Gets or sets format to use for dates.
+        /// </summary>
+        /// <remarks>
+        /// Used when creating folder (when <see cref="CreateDateFolder"/> is set to <c>true</c>).
+        /// </remarks>
+        /// <value>
+        /// Default is yyyy-MM-dd
+        /// </value>
+        public string DateFormat { get; set; }
 
-		/// <summary>
-		/// Gets or sets date/time format.
-		/// </summary>
-		/// <remarks>
-		/// Used for each log entry
-		/// </remarks>
-		/// <value>
-		/// Default is yyyy-MM-dd HH:mm:ss.fff
-		/// </value>
-		public string DateTimeFormat { get; set; }
-	}
+        /// <summary>
+        /// Gets or sets date/time format.
+        /// </summary>
+        /// <remarks>
+        /// Used for each log entry
+        /// </remarks>
+        /// <value>
+        /// Default is yyyy-MM-dd HH:mm:ss.fff
+        /// </value>
+        public string DateTimeFormat { get; set; }
+    }
 }

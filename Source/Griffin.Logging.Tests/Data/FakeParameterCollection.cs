@@ -9,8 +9,7 @@ namespace Griffin.TestTools.Data
 {
     public class FakeParameterCollection : DbParameterCollection
     {
-        public IDbCommand DbCommand { get; set; }
-        private List<DbParameter> _parameters = new List<DbParameter>();
+        private readonly List<DbParameter> _parameters = new List<DbParameter>();
 
         public FakeParameterCollection(IDbCommand dbCommand)
         {
@@ -21,8 +20,35 @@ namespace Griffin.TestTools.Data
         {
             foreach (var parameter in parameters)
             {
-                _parameters.Add((DbParameter)parameter);
+                _parameters.Add((DbParameter) parameter);
             }
+        }
+
+        public IDbCommand DbCommand { get; set; }
+
+        public override int Count
+        {
+            get { return _parameters.Count; }
+        }
+
+        public override object SyncRoot
+        {
+            get { return _parameters; }
+        }
+
+        public override bool IsSynchronized
+        {
+            get { return false; }
+        }
+
+        public override bool IsReadOnly
+        {
+            get { return false; }
+        }
+
+        public override bool IsFixedSize
+        {
+            get { return false; }
         }
 
         public override IEnumerator GetEnumerator()
@@ -43,7 +69,7 @@ namespace Griffin.TestTools.Data
         public override void CopyTo(Array array, int index)
         {
             if (array == null) throw new ArgumentNullException("array");
-            for (int i = 0; i < _parameters.Count; i++)
+            for (var i = 0; i < _parameters.Count; i++)
             {
                 array.SetValue(_parameters[i], index + i);
             }
@@ -53,10 +79,6 @@ namespace Griffin.TestTools.Data
         {
             throw new NotImplementedException();
         }
-
-        public override int Count { get { return _parameters.Count; } }
-        public override object SyncRoot { get { return _parameters; } }
-        public override bool IsSynchronized { get { return false; } }
 
         /// <summary>
         /// Adds an item to the <see cref="T:System.Collections.IList"/>.
@@ -68,7 +90,7 @@ namespace Griffin.TestTools.Data
         /// <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.IList"/> is read-only.-or- The <see cref="T:System.Collections.IList"/> has a fixed size. </exception>
         public override int Add(object value)
         {
-            _parameters.Add((DbParameter)value);
+            _parameters.Add((DbParameter) value);
             return _parameters.Count - 1;
         }
 
@@ -76,7 +98,7 @@ namespace Griffin.TestTools.Data
         {
             foreach (var value in values)
             {
-                _parameters.Add((DbParameter)value);
+                _parameters.Add((DbParameter) value);
             }
         }
 
@@ -92,17 +114,17 @@ namespace Griffin.TestTools.Data
 
         public override int IndexOf(object value)
         {
-            return _parameters.IndexOf((DbParameter)value);
+            return _parameters.IndexOf((DbParameter) value);
         }
 
         public override void Insert(int index, object value)
         {
-            _parameters.Insert(index, (DbParameter)value);
+            _parameters.Insert(index, (DbParameter) value);
         }
 
         public override void Remove(object value)
         {
-            _parameters.Remove((DbParameter)value);
+            _parameters.Remove((DbParameter) value);
         }
 
         public override void RemoveAt(int index)
@@ -111,12 +133,10 @@ namespace Griffin.TestTools.Data
         }
 
 
-
-        public override bool IsReadOnly { get { return false; } }
-        public override bool IsFixedSize { get { return false; } }
         public override bool Contains(string parameterName)
         {
-            return _parameters.Any(p => string.Equals(p.ParameterName, parameterName, StringComparison.OrdinalIgnoreCase));
+            return
+                _parameters.Any(p => string.Equals(p.ParameterName, parameterName, StringComparison.OrdinalIgnoreCase));
         }
 
         public override int IndexOf(string parameterName)

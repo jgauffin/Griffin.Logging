@@ -7,8 +7,8 @@ Configuration
 
 You can either use the simple interface to get going quickly:
 
-	SimpleLogManager.AddFile(@"D:\LogFiles\MyLog.log");
-	SimpleLogManager.AddConsole(false);
+	SimpleLogManager.Instance.AddFile(@"D:\LogFiles\MyLog.log");
+	SimpleLogManager.Instance.AddConsole(false);
     
 Or the fluent syntax:
 
@@ -27,22 +27,38 @@ Or the fluent syntax:
 Usage
 -----
 
-    // get a logger for a class
-    var logger = LogManager.GetLogger<MyClass>();
+	public class MyClass
+	{
+		ILogger logger = LogManager.GetLogger<MyClass>();
+	 
+		public MyClass()
+		{
+			// Built in formatting for cleaner syntax.
+			logger.Info("Welcome {0}!.", user.Name);
+		}
+		public void HideError()
+		{
+			try
+			{
+				throw new InvalidOperationException("No no", new OutOfScopeException("Can't thing anymore"));
+			}
+			catch (Exception err)
+			{
+				// exceptions details are properly formatted.
+				logger.Warning("Ooops, we got an exception.", ex);
+			}
+		}
+	}
 
-	// Log an exception. The inner exceptions are logged too (recursive)
-    logger.Warning("Ooops, we got an exception.", ex);
 
-	// Built in formatting for cleaner syntax.
-    logger.Info("Welcome {0}!.", user.Name);
-
-
-Installation
-------------
-
-Use nuget:
+Installation (nuget)
+--------------------
 
     Install-Package griffin.logging
+	
+You can also send all entries over MQ (great for clients)
+
+    Install-Package griffin.logging.mq 
 
 
 Extending

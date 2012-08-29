@@ -96,9 +96,7 @@
   <ItemGroup>
     <Compile Include="ConfigureExtension.cs" />
     <Compile Include="Filters\IPostFilter.cs" />
-    <Compile Include="Filters\IPostFilterContract.cs" />
     <Compile Include="Filters\IPreFilter.cs" />
-    <Compile Include="Filters\IPreFilterContract.cs" />
     <Compile Include="Filters\LevelFilter.cs" />
     <Compile Include="Filters\NamespaceDoc.cs" />
     <Compile Include="Filters\NamespaceFilter.cs" />
@@ -109,9 +107,7 @@
     <Compile Include="FluentTargetConfiguration.cs" />
     <Compile Include="FluentTargetConfigurationTypes.cs" />
     <Compile Include="ILogger.cs" />
-    <Compile Include="ILoggerContract.cs" />
     <Compile Include="ILogManager.cs" />
-    <Compile Include="ILogManagerContract.cs" />
     <Compile Include="LogEntry.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="LogLevel.cs" />
@@ -135,7 +131,6 @@
     <Compile Include="Targets\File\NamespaceDoc.cs" />
     <Compile Include="Targets\File\PaddedFileTarget.cs" />
     <Compile Include="Targets\ILogTarget.cs" />
-    <Compile Include="Targets\ILogTargetContract.cs" />
     <Compile Include="Targets\LogEntryExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

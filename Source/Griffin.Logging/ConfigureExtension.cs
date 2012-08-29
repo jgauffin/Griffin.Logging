@@ -19,7 +19,7 @@
 
 namespace Griffin.Logging
 {
-	/*
+    /*
     /// <summary>
     /// Extension method attaching the logging configuration api to the Griffin configurer.
     /// </summary>
